@@ -6,7 +6,7 @@
         So that poderei assim apresenta-las em paginas web mostrando seu conteúdo
 
     Scenario: nova questão argumentativa
-        Given que não existe uma questão argumentativa com enunciado "Quem foi romulo e remulo?" no sistema
+        Given que não existe uma questão argumentativa com enunciado "Quem foi romulo e remulo?"  e com assunto "História" no sistema
         When  eu crio uma questão argumentativa com enunciado "Quem foi Rômulo e remulo" e com assunto "História"
         Then  salve no sistema a nova questão argumentativa criada
 

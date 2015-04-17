@@ -1,30 +1,33 @@
 # encoding: UTF-8
-include ObjectSpace
 
-Given(/^que existe uma questão argumentativa com enunciado "([^"]*)" no sistema$/) do |arg1|
-  @questao = Questao.find_by_enunciado ! ("arg1")
+Given(/^que não existe uma questão argumentativa com enunciado "([^"]*)"  e com assunto "([^"]*)" no sistema$/) do |arg1, arg2|
+   @questao = Questao.find_by_enunciado_and_assunto ! ("arg1")
 end
 
-When(/^eu removo a questão argumentativa com enunciado "([^"]*)"$/) do |arg1|
-  @questao.destroy
+When(/^eu crio uma questão argumentativa com enunciado "([^"]*)" e com assunto "([^"]*)"$/) do |arg1, arg2|
+  Questao.new
 end
 
-Then(/^a questão argumentativa com enunciado "([^"]*)" não existe mais no sistema$/) do |arg1|
-  @questao = Questao.find_by_enunciado_deletado ! ("arg1")
+Then(/^salve no sistema a nova questão argumentativa criada$/) do
+  @questao = Questao.find_by_enunciado_and_assunto ! ("arg1")
 end
 
 
-Given(/^que tenha no sistema a questão argumentativa com enunciado "([^"]*)"$/) do |arg1|
-  @questao = Questao.find_by_enunciado ! ("arg1")
+Given(/^que estou no menu de questões$/) do
+  pending # Write code here that turns the phrase above into concrete actions
 end
 
-When(/^eu vejo a lista de questões argumentativas$/) do
-  @all = Questao.all
-end
-Then(/^minha lista de questões argumentativas contêm a questão argumentativa com enunciado "([^"]*)"$/) do |arg1|
-  Questao.include(arg1)
+When(/^eu seleciono a opção "([^"]*)" no menu de questões$/) do |arg1|
+  pending # Write code here that turns the phrase above into concrete actions
 end
 
+When(/^eu seleciono nova questão argumentativa na página de questões$/) do
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+Then(/^eu posso ver os detalhes da questão argumentativa$/) do
+  pending # Write code here that turns the phrase above into concrete actions
+end
 
 
 
@@ -39,25 +42,9 @@ class Questao
       #self.destroy
     end
 
-    def self.find_by_enunciado(enunciado)
+    def self.find_by_enunciado_and_assunto(enunciado)
       #Como o sistema não está funcionando, criei um novo objeto para que o buscar funcione
       #return Questao.find_by_enunciado(enunciado)
       return Questao.new
-    end
-
-    def self.find_by_enunciado_deletado(enunciado)
-        return nil
-    end
-
-    def self.all
-      return ObjectSpace.each_object(self).to_a
-    end
-
-    def self.count
-      all.count
-    end
-
-    unless self.include?(contains)
-      @suggested_horses << contains
     end
 end
