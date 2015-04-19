@@ -1,50 +1,83 @@
 # encoding: UTF-8
+require 'minitest/unit'
+include MiniTest::Assertions
+require pages.QuestionsPage.*
+require pages.
 
 Given(/^que não existe uma questão argumentativa com enunciado "([^"]*)"  e com assunto "([^"]*)" no sistema$/) do |arg1, arg2|
-   @questao = Questao.find_by_enunciado_and_assunto ! ("arg1")
+  #assert questaoNoExist(arg1, arg2)
+  assert(questaoNoExist(arg1, arg2), "Não existe uma  questão com esse enunciado nem com esse assunto assunto")
+
 end
 
 When(/^eu crio uma questão argumentativa com enunciado "([^"]*)" e com assunto "([^"]*)"$/) do |arg1, arg2|
-  Questao.new
+  @questao = Questao.new(arg1, arg2)
+  @questao.save()
+
 end
 
-Then(/^salve no sistema a nova questão argumentativa criada$/) do
-  @questao = Questao.find_by_enunciado_and_assunto ! ("arg1")
+Then(/^salve no sistema a nova questão argumentativa com enunciado "([^"]*)" e com assunto "([^"]*)" $/) do
+  assert((not questaoNoExist(arg1, arg2)), "Existe uma questão com esse enunciado nem com esse assunto assunto")
 end
 
 
 Given(/^que estou no menu de questões$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+  addPage()
 end
 
 When(/^eu seleciono a opção "([^"]*)" no menu de questões$/) do |arg1|
-  pending # Write code here that turns the phrase above into concrete actions
+  selectQuestionsArgumentativeInQuestionPage(arg1)
 end
 
 When(/^eu seleciono nova questão argumentativa na página de questões$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+  createQuestionArgumentative()
 end
 
 Then(/^eu posso ver os detalhes da questão argumentativa$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+  mostrarDetalhes()
 end
 
 
 
 class Questao
     attr_reader :enunciado
+    attr_reader :assunto
 
-    def initialize
-        @enunciado = ""
+    def initialize (enunciado, assunto)
+        @enunciado = enunciado
+        @assunto = assunto
     end
 
     def destroy
       #self.destroy
     end
 
-    def self.find_by_enunciado_and_assunto(enunciado)
-      #Como o sistema não está funcionando, criei um novo objeto para que o buscar funcione
-      #return Questao.find_by_enunciado(enunciado)
-      return Questao.new
+    def self.save
+      self.should save()
+
     end
+end
+
+
+
+def addPage
+  Login()
+  at QuestionsPage
+end
+
+def questaoNoExist(enunciado, assunto)
+  return Questao.should find_by_enunciado_and_assunto(enunciado, assunto) == nil
+end
+
+def selectQuestionsArgumentativeInQuestionPage(arg1)
+  selectQuestionArgumentative(arg1)
+  at QuestionCreatePage
+end
+
+def createQuestionArgumentative
+  createQuestions()
+end
+
+def mostrarDetalhes
+  fillQuestionDetails()
 end

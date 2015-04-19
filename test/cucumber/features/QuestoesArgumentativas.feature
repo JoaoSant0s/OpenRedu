@@ -8,7 +8,7 @@
     Scenario: nova questão argumentativa
         Given que não existe uma questão argumentativa com enunciado "Quem foi romulo e remulo?"  e com assunto "História" no sistema
         When  eu crio uma questão argumentativa com enunciado "Quem foi Rômulo e remulo" e com assunto "História"
-        Then  salve no sistema a nova questão argumentativa criada
+        Then  salve no sistema a nova questão argumentativa com enunciado "Quem foi romulo e remulo?"" e com assunto "História"
 
     Scenario: remover questão argumentativa existente
         Given que existe uma questão argumentativa com enunciado "Quem foi romulo e remulo?" no sistema
